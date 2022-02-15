@@ -1,1 +1,17 @@
-<h3>Cart Page</h3>
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+    <h1 class="checkout-title"> My Bag </h1>
+    <div class="bag-container checkout-wrapper">
+        <div class="imagebox checkout-product">
+            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <div>
+                <p class="product-title">Eyelinear</p>
+                <p>$ 12.99</p>
+            </div>
+        </div>
+        <div class='box-element'>
+
+        </div>
+    </div>
+{% endblock content %}

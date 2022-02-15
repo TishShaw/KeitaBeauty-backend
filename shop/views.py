@@ -2,6 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 
+
+def home(request):
+    context = {}
+    return render(request, 'shop/home.html', context)
+
 def shop(request):
     context = {}
     return render(request, 'shop/shop.html', context)

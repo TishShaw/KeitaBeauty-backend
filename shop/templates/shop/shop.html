@@ -1,1 +1,48 @@
-<h3>Shop Page</h3>
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+    <br>
+    <div class='wrap'>
+        <div class='col-lg-4 imagebox'>
+            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <div class='box-element product'>
+                <p class="product-title">Eyelinear</p>
+                <p class="product-price">$ 12.99</p>
+                <hr>
+                <button class='btn btn-outline-secondary'>Add to Cart</button>
+                <button class='btn btn-outline-secondary'>View</button>
+            </div>
+        </div>
+        <div class='col-lg-4 imagebox'>
+            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <div class='box-element product'>
+                <p class="product-title">Eyelinear</p>
+                <p class="product-price">$ 12.99</p>
+                <hr>
+                <button class='btn btn-outline-secondary'>Add to Cart</button>
+                <button class='btn btn-outline-secondary'>View</button>
+            </div>
+        </div>
+        <div class='col-lg-4 imagebox'>
+            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <div class='box-element product'>
+                <p class="product-title">Eyelinear</p>
+                <p class="product-price">$ 12.99</p>
+                <hr>
+                <button class='btn btn-outline-secondary'>Add to Cart</button>
+                <button class='btn btn-outline-secondary'>View</button>
+            </div>
+        </div>
+        <div class='col-lg-4 imagebox'>
+            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <div class='box-element product'>
+                <p class="product-title">Eyelinear</p>
+                <p class="product-price">$ 12.99</p>
+                <hr>
+                <button class='btn btn-outline-secondary'>Add to Cart</button>
+                <button class='btn btn-outline-secondary'>View</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
