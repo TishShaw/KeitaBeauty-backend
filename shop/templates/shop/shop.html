@@ -3,46 +3,17 @@
 {% block content %}
     <br>
     <div class='wrap'>
+        {% for product in products %}
         <div class='col-lg-4 imagebox'>
-            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
+            <img class="product-img" src="{{product.image.url}}" />
             <div class='box-element product'>
-                <p class="product-title">Eyelinear</p>
-                <p class="product-price">$ 12.99</p>
+                <p class="product-title">{{product.item}}</p>
+                <p class="product-price">$ {{product.price|floatformat:2}}</p>
                 <hr>
                 <button class='btn btn-outline-secondary'>Add to Cart</button>
                 <button class='btn btn-outline-secondary'>View</button>
             </div>
-        </div>
-        <div class='col-lg-4 imagebox'>
-            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
-            <div class='box-element product'>
-                <p class="product-title">Eyelinear</p>
-                <p class="product-price">$ 12.99</p>
-                <hr>
-                <button class='btn btn-outline-secondary'>Add to Cart</button>
-                <button class='btn btn-outline-secondary'>View</button>
-            </div>
-        </div>
-        <div class='col-lg-4 imagebox'>
-            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
-            <div class='box-element product'>
-                <p class="product-title">Eyelinear</p>
-                <p class="product-price">$ 12.99</p>
-                <hr>
-                <button class='btn btn-outline-secondary'>Add to Cart</button>
-                <button class='btn btn-outline-secondary'>View</button>
-            </div>
-        </div>
-        <div class='col-lg-4 imagebox'>
-            <img class="product-img" src="{% static 'images/eyelinear.jpg' %}" />
-            <div class='box-element product'>
-                <p class="product-title">Eyelinear</p>
-                <p class="product-price">$ 12.99</p>
-                <hr>
-                <button class='btn btn-outline-secondary'>Add to Cart</button>
-                <button class='btn btn-outline-secondary'>View</button>
-            </div>
-        </div>
+            {% endfor %}   
     </div>
 
 {% endblock content %}
