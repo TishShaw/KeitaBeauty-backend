@@ -23,7 +23,7 @@ class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
         view_name='product_detail', read_only=True)
     
     name = serializers.ReadOnlyField(source='product.item')
-    
+    owner =serializers.ReadOnlyField(source='owner.username')
     product_id = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(),
         source='product'
@@ -31,4 +31,4 @@ class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Favorite
-        fields = ('id', 'products', 'product_id', 'name')
+        fields = ('id', 'products', 'product_id', 'name', 'owner')

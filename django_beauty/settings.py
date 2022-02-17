@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'user',
+    'djoser',
     'django_extensions',
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
     
 ]
 
@@ -125,8 +127,8 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
-        'user_create': 'users.serializers.UserCreateSerializer',
-        'user': 'users.serializers.UserCreateSerializer'
+        'user_create': 'user.serializers.UserCreateSerializer',
+        'user': 'user.serializers.UserCreateSerializer'
     }
 }
 
@@ -149,6 +151,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # What we'll use for our API
+        'rest_framework.authentication.TokenAuthentication',
+        # What we'll use for the browseable API
+        'rest_framework.authentication.SessionAuthentication',
+        # Basic Authentication should be removed in production
+        'rest_framework.authentication.BasicAuthentication',
+    ],
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
@@ -156,7 +166,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-LOGIN_REDIRECT_URL = '/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 

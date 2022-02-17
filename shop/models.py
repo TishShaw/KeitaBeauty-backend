@@ -45,6 +45,7 @@ class Product(models.Model):
 class Favorite(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='favorite', null=True)
+    owner = models.ForeignKey('user.User', related_name='favorites', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.product.item

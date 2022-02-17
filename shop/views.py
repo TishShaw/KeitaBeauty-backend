@@ -1,29 +1,37 @@
 from rest_framework import permissions, generics
 from shop.permissions import IsOwnerOrReadOnly
 from .models import Product, Favorite
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+# from django.shortcuts import render, redirect
+# from django.contrib.auth import login, authenticate
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from .serializers import FavoriteSerializer, ProductSerializer
-
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework import status
+# from user.serializers import UserSerializer
 
 
 class FavoriteList(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     # overwrite create method
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def get_queryset(self):
+        user = self.request.user
+        return Favorite.objects.filter(owner=user)
     
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -55,45 +63,45 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
 #     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-def sign_up(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('artist_list')
-    else:
-        form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('artist_list')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'accounts/signup.html', {'form': form})
 
 
 
 
 
-def favorite_create(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            favorite = form.save()
-            return redirect('favorite_list')
-    else:
-        form = UserCreationForm()
-    return render(request, 'favorite', {'form': form})
+# def favorite_create(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             favorite = form.save()
+#             return redirect('favorite_list')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'favorite', {'form': form})
 
 
-def login(request):
-    context = {}
-    return render(request, 'shop/login.html', context)
+# def login(request):
+#     context = {}
+#     return render(request, 'shop/login.html', context)
 
 
 
-def sign_up(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('shop')
-    else:
-        form = UserCreationForm()
-    return render(request, 'shop/signup.html', {'form': form})
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('shop')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'shop/signup.html', {'form': form})
