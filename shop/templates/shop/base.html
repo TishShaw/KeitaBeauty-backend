@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>Keita's beauty</title>
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+</head>
+
+<body>
+    <h1>Keita's Beauty</h1>
+    <nav>
+        <a href="/shop">Shop All</a>
+        <a href="{% url 'signup' %}">Signup</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

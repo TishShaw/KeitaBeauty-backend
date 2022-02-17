@@ -1,0 +1,1 @@
+arn:aws:iam::456844568750:user/Keita-beauty

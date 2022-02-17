@@ -1,11 +1,12 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your models here.
 
 
 class Customer(models.Model):
-    name = models.ForeignKey('user.User',
-        on_delete=models.CASCADE,  blank=True, null=True)
+    name = models.ForeignKey(User,
+    on_delete=models.CASCADE,  blank=True, null=True)
     pasword = models.CharField(max_length=50, null=True)
     shipping_address = models.CharField(max_length=200, null=True)
     phone_number = models.CharField(max_length=100, default='', blank=True)
@@ -42,7 +43,8 @@ class Product(models.Model):
 
 
 class Favorite(models.Model):
-    products = models.ManyToManyField(Product)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='favorite', null=True)
 
     def __str__(self):
-        return self.products
+        return self.product.item
