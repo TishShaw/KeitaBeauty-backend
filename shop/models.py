@@ -16,6 +16,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+    category_name = models.CharField(max_length=255, null=True)
     item = models.CharField(max_length=255, null=True)
     image = models.ImageField(
         upload_to='static/images/', null=True, blank=True)
@@ -25,6 +26,21 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.item) + ": $" + str(self.price)
+
+
+class Favorite(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='favorite', null=True)
+    owner = models.ForeignKey('user.User', related_name='favorites', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.product.item
+
+
+
+
+
+
 
 
 # class Order(models.Model):
@@ -40,12 +56,3 @@ class Product(models.Model):
 
 #     def __str__(self):
 #         return self.transaction_id
-
-
-class Favorite(models.Model):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name='favorite', null=True)
-    owner = models.ForeignKey('user.User', related_name='favorites', on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return self.product.item
