@@ -1,1 +1,1 @@
-web: gunicorn shop_django.wsgi
+web: gunicorn django_beauty.wsgi
