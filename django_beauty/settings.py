@@ -10,13 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from decouple import config
-import django_heroku
+
 import dj_database_url
 from pathlib import Path
 import os
-import cloudinary
-import cloudinary_storage
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,8 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
-    'cloudinary',
-    'cloudinary_storage',
+
 
 ]
 
@@ -144,11 +141,6 @@ DJOSER = {
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUD_NAME', default=""),
-    'API_KEY': config('API_KEY', default=""),
-    'API_SECRET': config('API_SECRET', default=""),
-}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -156,6 +148,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/images/'
 
@@ -194,4 +187,3 @@ REST_FRAMEWORK = {
 
 # AWS_QUERYSTRING_AUTH = False
 
-django_heroku.settings(locals())
