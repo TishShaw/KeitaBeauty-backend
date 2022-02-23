@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ['MODE'] == 'dev' else False
 
-ALLOWED_HOSTS = ['secret-beyond-07972.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
