@@ -1,3 +1,4 @@
+import string
 from django.db import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -31,28 +32,64 @@ class Product(models.Model):
 class Favorite(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='favorite', null=True)
-    owner = models.ForeignKey('user.User', related_name='favorites', on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey('user.User', related_name='favorites',
+    on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.product.item
 
 
+class Review(models.Model):
+    review_title = models.CharField(
+        max_length=100, default='', blank=True, null=True)
+    review_body = models.CharField(
+        max_length=500, default='', blank=True, null=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='reviews')
+    owner = models.ForeignKey(
+        'user.User', related_name='review', on_delete=models.CASCADE)
+
+    def _str_(self):
+        return str(self.title)
 
 
+class Order(models.Model):
+    customer_id = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name='customer', blank=True, null=True)
+    transaction_id = models.AutoField(primary_key=True, editable=False)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    shippping_price = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_type = models.CharField(max_length=255, null=True)
+    is_paid = models.BooleanField(default=False, null=True, blank=False)
+    paidAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    is_devlivered = models.BooleanField(default=False, null=True, blank=False)
+    deliveredAt = models.DateTimeField(
+        auto_now_add=False, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.created_at)
 
 
+class CartItem(models.Model):
+    name = models.CharField(max_length=255, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField(null=True, blank=True, default=0)
+
+    def __str__(self):
+        return self.name
 
 
-# class Order(models.Model):
-#     customer_id = models.ForeignKey(
-#         Customer, on_delete=models.CASCADE, related_name='customer', blank=True, null=True)
-#     product = models.ForeignKey(
-#         Product, on_delete=models.CASCADE, related_name='product', null=True)
-#     quantity = models.IntegerField(default=1)
-#     transaction_id = models.CharField(max_length=255, null=True)
-#     date_ordered = models.DateTimeField(auto_now_add=True)
-#     payment_type = models.CharField(max_length=255, null=True)
-#     is_complete = models.BooleanField(default=False, null=True, blank=False)
+class ShippingAddress(models.Model):
+    order = models.OneToOneField(
+        Order, on_delete=models.CASCADE, related_name='order', blank=True, null=True)
+    customer_address = models.CharField(max_length=255, null=True)
+    customer_city = models.CharField(max_length=255, null=True)
+    customer_postalCode = models.CharField(max_length=255, null=True)
+    country = models.CharField(max_length=255, null=True)
+    shipping_fee = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
 
-#     def __str__(self):
-#         return self.transaction_id
+    def __str__(self):
+        return self.address

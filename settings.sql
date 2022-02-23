@@ -1,7 +1,5 @@
 -- settings.sql
 CREATE DATABASE shop;
-DROP DATABASE [IF EXISTS] shop;
 
-DROP User [IF EXISTS] shopuser;
 CREATE USER shopuser WITH PASSWORD 'shop';
 GRANT ALL PRIVILEGES ON DATABASE shop TO shopuser;
