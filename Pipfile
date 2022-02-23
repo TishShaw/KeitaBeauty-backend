@@ -14,6 +14,10 @@ django-cors-headers = "*"
 django-extensions = "*"
 djoser = "*"
 pillow = "*"
+django-cloudinary-storage = "*"
+cloudinary = "*"
+python-decouple = "*"
+django-heroku = "*"
 
 [dev-packages]
 
