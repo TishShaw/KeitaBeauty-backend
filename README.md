@@ -38,3 +38,6 @@ To start a new server, run this command:
 - Djoser
 - Whitenoise
 - Heroku
+
+## Major Hurdles
+There were some issues during deployment and uploading static images with heroku. I tried using cloudinary media management services but decided to keep trying with whitenoise and everything worked out! 
