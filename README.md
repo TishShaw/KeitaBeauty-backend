@@ -1,5 +1,6 @@
 # KeitaBeauty-backend
-
+Keita's Beauty is an online E-commerce Website where you can purchase your favorite make-up products for a reasonable price. Redux state management is used to handle cart functionality.
+	
 ## Getting Started
 
 Create a project:
@@ -33,4 +34,7 @@ To start a new server, run this command:
 ## Technologies Used
 
 - Django RestFramework
+- Python
 - Djoser
+- Whitenoise
+- Heroku
