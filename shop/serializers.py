@@ -1,5 +1,7 @@
 from rest_framework import serializers
+from user.serializers import UserCreateSerializer
 from .models import Product, Favorite, Review, Order, CartItem, ShippingAddress
+
 
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,15 +25,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = ('id', 'item', 'image', 'price', 'description',
                   'reviews', 'is_active', 'category_name')
-
-# class OrderSerializer(serializers.HyperlinkedModelSerializer):
-
-#     Order = serializers.HyperlinkedRelatedField(
-#         view_name='order_detail', read_only=True)
-
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'customer_id', 'product', 'quantity','transacrtion_id', 'date_ordered', 'payment_type', 'is_complete')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,4 +54,39 @@ class CartItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CartItem
-        fields = ('id', 'name', 'product', 'quantity', 'product_id')
+        fields = '__all__'
+
+
+class ShippingAddressSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ShippingAddress
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.HyperlinkedModelSerializer):
+
+    Order = serializers.HyperlinkedRelatedField(
+        view_name='order_detail', read_only=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+    def get_cartItem(self, obj):
+        items = obj.cartItem_set.all()
+        serializer = CartItemSerializer(items, many=True)
+        return serializer.data
+
+    
+    def get_shippingAddress(self, obj):
+        try:
+            address = ShippingAddressSerializer(
+                obj.shippingaddress, many=False).data
+        except:
+            address = False
+        return address
+
+    def get_user(self, obj):
+        user = obj.user
+        serializer = UserCreateSerializer(user, many=False)
+        return serializer.data
