@@ -24,12 +24,12 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'item', 'image', 'price', 'description',
-                  'reviews', 'is_active', 'category_name')
+                  'reviews', 'is_active', 'category_name', 'countInStock')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
     products = serializers.HyperlinkedRelatedField(
-        view_name='product_detail', read_only=True)
+        view_name='product_detail', read_only=True, many=True)
 
     name = serializers.ReadOnlyField(source='product.item')
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -40,7 +40,7 @@ class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = ('id', 'products', 'product_id', 'name', 'owner')
+        fields = ('id','product', 'products', 'product_id', 'name', 'owner')
 
 
 class CartItemSerializer(serializers.HyperlinkedModelSerializer):
