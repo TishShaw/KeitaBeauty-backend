@@ -9,7 +9,7 @@ urlpatterns = [
     path('shop/favorites/<int:pk>',
          views.FavoriteDetail.as_view(), name='favorite_detail'),
     path('shop/review/',
-         views.ReviewList.as_view(), name='review-list'),
+         views.ReviewList.as_view(), name='review_list'),
     path('shop/review/<int:pk>',
-         views.ReviewDetail.as_view(), name='review-detail'),
+         views.ReviewDetail.as_view(), name='review_detail'),
 ]

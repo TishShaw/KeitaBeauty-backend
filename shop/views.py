@@ -9,25 +9,24 @@ from .serializers import FavoriteSerializer, ProductSerializer, OrderItemSeriali
 class FavoriteList(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
-    # overwrite create method
-
-    def get_queryset(self):
-        user = self.request.user
-        return Favorite.objects.filter(owner=user)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
+        
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
+class UserFavoritePermission(permissions.BasePermission):
+    def has_permission(self, request, view, obj):
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+            
+        return obj.user == request.user
+
+    
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
