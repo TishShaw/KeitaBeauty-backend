@@ -1,4 +1,5 @@
 from rest_framework import permissions, generics
+from rest_framework.views import APIView
 from shop.permissions import IsOwnerOrReadOnly
 from .models import Product, Favorite, OrderItem, Review, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
@@ -42,12 +43,12 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class OrderList(generics.ListCreateAPIView):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
+# class OrderList(generics.ListCreateAPIView):
+#     queryset = OrderItem.objects.all()
+#     serializer_class = OrderItemSerializer
 
-    # overwrite create method
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+#     # overwrite create method
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
 
 class ReviewList(generics.ListCreateAPIView):
