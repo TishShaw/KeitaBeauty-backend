@@ -1,8 +1,8 @@
 from rest_framework import permissions, generics
 from shop.permissions import IsOwnerOrReadOnly
-from .models import Product, Favorite, CartItem, Review
+from .models import Product, Favorite, OrderItem, Review, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
-from .serializers import FavoriteSerializer, ProductSerializer, CartItemSerializer, ReviewSerializer
+from .serializers import FavoriteSerializer, ProductSerializer, OrderItemSerializer, ReviewSerializer
 
 
 class FavoriteList(generics.ListCreateAPIView):
@@ -42,21 +42,13 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class CartList(generics.ListCreateAPIView):
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+class OrderList(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
     # overwrite create method
-
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
-class CartDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
-
-    # permission_classes = [IsOwnerOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
 
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
@@ -74,18 +66,3 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReviewSerializer
 
     permission_classes = [IsOwnerOrReadOnly]
-
-# class OrderList(generics.ListCreateAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
-
-#     # overwrite create method
-
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
-# class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
-
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

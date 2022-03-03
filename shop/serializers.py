@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from user.serializers import UserCreateSerializer
-from .models import Product, Favorite, Review, Order, CartItem, ShippingAddress
-
+from .models import Product, Favorite, Review, Order, OrderItem, ShippingAddress
 
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,7 +13,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'owner', 'product_id', 'review_title', 'review_body', )
+        fields = '__all__'
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,8 +22,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'item', 'image', 'price', 'description',
-                  'reviews', 'is_active', 'category_name', 'countInStock')
+        fields = '__all__'
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,20 +38,12 @@ class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = ('id','product', 'products', 'product_id', 'name', 'owner')
+        fields = '__all__'
 
 
-class CartItemSerializer(serializers.HyperlinkedModelSerializer):
-    product = serializers.HyperlinkedRelatedField(
-        view_name='product_detail', read_only=True)
-
-    product_id = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(),
-        source='product'
-    )
-
+class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = CartItem
+        model = OrderItem
         fields = '__all__'
 
 
@@ -64,29 +54,10 @@ class ShippingAddressSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-
-    Order = serializers.HyperlinkedRelatedField(
-        view_name='order_detail', read_only=True)
+    orderItems = serializers.SerializerMethodField(read_only=True)
+    shippingAddress = serializers.SerializerMethodField(read_only=True)
+    user = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
         fields = '__all__'
-
-    def get_cartItem(self, obj):
-        items = obj.cartItem_set.all()
-        serializer = CartItemSerializer(items, many=True)
-        return serializer.data
-
-    
-    def get_shippingAddress(self, obj):
-        try:
-            address = ShippingAddressSerializer(
-                obj.shippingaddress, many=False).data
-        except:
-            address = False
-        return address
-
-    def get_user(self, obj):
-        user = obj.user
-        serializer = UserCreateSerializer(user, many=False)
-        return serializer.data
