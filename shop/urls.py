@@ -3,8 +3,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('shop/', views.ProductList.as_view(), name='product_list'),
-    path('shop/<int:pk>', views.ProductDetail.as_view(), name='product_detail'),
+    path('shop/', views.ProductList.as_view(), name='product-list'),
+    path('shop/<int:pk>', views.ProductDetail.as_view(), name='product-detail'),
     path('shop/favorites/', views.FavoriteList.as_view(), name='favorite_list'),
     path('shop/favorites/<int:pk>',
          views.FavoriteDetail.as_view(), name='favorite_detail'),
