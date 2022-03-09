@@ -52,7 +52,7 @@ class Review(models.Model):
         Product, on_delete=models.CASCADE, related_name='reviews')
     owner = models.ForeignKey(
         'user.User', related_name='review', on_delete=models.CASCADE)
-    rating = models.IntegerField(null=True, blank=True, default=0)
+   
    
 
     def _str_(self):
