@@ -13,7 +13,8 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'review_title', 'review_body', 'owner', 'product_id', 'rating')
+        fields = ('id', 'review_title', 'review_body',
+                  'owner', 'product_id', 'rating')
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,7 +23,8 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'category_name', 'item', 'image', 'price', 'description', 'is_active', 'reviews')
+        fields = ('id', 'category_name', 'item', 'image',
+                  'price', 'description', 'is_active', 'reviews')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,7 +52,8 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
 class ShippingAddressSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ShippingAddress
-        fields = ('id', 'order', 'customer_address', 'customer_city', 'customer_postalCode', 'country', 'shipping_fee')
+        fields = ('id', 'order', 'customer_address', 'customer_city',
+                  'customer_postalCode', 'country', 'shipping_fee')
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
