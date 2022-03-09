@@ -22,6 +22,9 @@ class Product(models.Model):
         upload_to='static/images/', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.CharField(max_length=255, null=True)
+    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    numReviews = models.IntegerField(null=True, blank=True, default=0)
+    countInStock = models.IntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=False, null=True, blank=False)
    
 
@@ -40,6 +43,7 @@ class Favorite(models.Model):
 
 
 class Review(models.Model):
+    rating = models.IntegerField(null=True, blank=True, default=0)
     review_title = models.CharField(
         max_length=100, default='', blank=True, null=True)
     review_body = models.CharField(
@@ -48,10 +52,11 @@ class Review(models.Model):
         Product, on_delete=models.CASCADE, related_name='reviews')
     owner = models.ForeignKey(
         'user.User', related_name='review', on_delete=models.CASCADE)
+    rating = models.IntegerField(null=True, blank=True, default=0)
    
 
     def _str_(self):
-        return str(self.title)
+        return str(self.rating)
 
 
 class Order(models.Model):
@@ -77,7 +82,8 @@ class OrderItem(models.Model):
     name = models.CharField(max_length=255, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(null=True, blank=True, default=0)
+    image = models.CharField(max_length=200, null=True, blank=True)
+    qty = models.IntegerField(null=True, blank=True, default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
    
 

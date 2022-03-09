@@ -42,12 +42,12 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-# class OrderList(generics.ListCreateAPIView):
-#     queryset = OrderItem.objects.all()
-#     serializer_class = OrderItemSerializer
+class OrderList(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
-#     # overwrite create method
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # overwrite create method
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
 
 class ReviewList(generics.ListCreateAPIView):

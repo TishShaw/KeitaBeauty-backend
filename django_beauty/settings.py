@@ -94,8 +94,18 @@ AUTH_USER_MODEL = 'user.User'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600)
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shop',
+        'USER': 'shopuser',
+        'PASSWORD': 'shop',
+        'HOST': 'localhost'
+    }
 }
 
 
