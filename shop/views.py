@@ -3,13 +3,14 @@ from rest_framework.views import APIView
 from shop.permissions import IsOwnerOrReadOnly
 from .models import Product, Favorite, OrderItem, Review, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
-from .serializers import FavoriteSerializer, ProductSerializer, OrderItemSerializer, ReviewSerializer
+from .serializers import FavoriteSerializer, ProductSerializer, OrderItemSerializer, ReviewSerializer, CustomerSerializer, OrderSerializer, ShippingAddressSerializer
 
 
 class FavoriteList(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
-        
+
+
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
@@ -23,10 +24,9 @@ class UserFavoritePermission(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-            
         return obj.user == request.user
 
-    
+
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -48,7 +48,7 @@ class OrderList(generics.ListCreateAPIView):
 
     # overwrite create method
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+
 
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()

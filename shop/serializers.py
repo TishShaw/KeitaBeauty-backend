@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from user.serializers import UserCreateSerializer
-from .models import Product, Favorite, Review, Order, OrderItem, ShippingAddress
+from .models import Product, Favorite, Review, Order, OrderItem, ShippingAddress, Customer
+
+
+class CustomerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ('id', 'name', 'shipping_address', 'phone_number')
 
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,33 +20,24 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Review
         fields = ('id', 'review_title', 'review_body',
-                  'owner', 'product_id', 'rating')
+                  'product', 'owner', 'product_id', 'rating')
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-
     reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
         fields = ('id', 'category_name', 'item', 'image',
-                  'price', 'description', 'is_active', 'reviews', 'rating')
+                  'price', 'description', 'rating', 'numReviews', 'countInStock', 'is_active', 'reviews')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
-    # products = serializers.HyperlinkedRelatedField(
-    #     view_name='product_detail', read_only=True, many=True)
-
-    name = serializers.ReadOnlyField(source='product.item')
     owner = serializers.ReadOnlyField(source='owner.username')
-    product_id = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(),
-        source='product'
-    )
 
     class Meta:
         model = Favorite
-        fields = ('id', 'product', 'owner', 'name', 'product_id')
+        fields = ('id', 'product', 'owner')
 
 
 class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
