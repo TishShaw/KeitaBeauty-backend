@@ -32,15 +32,14 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
 
     # overwrite create method
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    
 
 class OrderList(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
@@ -54,9 +53,6 @@ class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
-    # overwrite create method
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
