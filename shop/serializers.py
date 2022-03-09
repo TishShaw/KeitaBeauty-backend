@@ -24,7 +24,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'category_name', 'item', 'image',
-                  'price', 'description', 'is_active', 'reviews')
+                  'price', 'description', 'is_active', 'reviews', 'rating')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
