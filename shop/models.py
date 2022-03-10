@@ -29,7 +29,7 @@ class Product(models.Model):
    
 
     def __str__(self):
-        return str(self.item) + ": $" + str(self.price)
+        return self.item
 
 
 class Favorite(models.Model):

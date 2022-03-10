@@ -24,7 +24,6 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    countInStock = serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = Product
