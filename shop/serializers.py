@@ -14,6 +14,11 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
         queryset=Product.objects.all(),
         source='product'
     )
+    
+    rating = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        source='product.rating'
+    )
 
     owner = serializers.ReadOnlyField(source='owner.username')
 
@@ -27,7 +32,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Product
-        fields = ('id', 'category_name', 'item', 'image',
+        fields = ('id', 'category_name', 'rating', 'item', 'image',
                   'price', 'description', 'is_active', 'reviews')
 
 
