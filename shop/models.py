@@ -22,7 +22,7 @@ class Product(models.Model):
         upload_to='static/images/', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.CharField(max_length=255, null=True)
-    ratings = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    # ratings = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     numReviews = models.IntegerField(null=True, blank=True, default=0)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=False, null=True, blank=False)
