@@ -24,11 +24,12 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-
+    countInStock = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Product
         fields = ('id', 'category_name', 'item', 'image',
-                  'price', 'description', 'numReviews', 'countInStock', 'is_active', 'reviews')
+                  'price', 'description', 'countInStock', 'is_active', 'reviews')
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
