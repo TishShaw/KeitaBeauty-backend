@@ -13,3 +13,4 @@ urlpatterns = [
     path('shop/review/<int:pk>',
          views.ReviewDetail.as_view(), name='review-detail'),
 ]
+ 
