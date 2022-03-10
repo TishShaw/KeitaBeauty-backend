@@ -1,6 +1,6 @@
 -- settings.sql
-CREATE DATABASE shop;
-DROP DATABASE shop;
-CREATE USER shopuser WITH PASSWORD 'shop';
-DROP USER shopuser;
-GRANT ALL PRIVILEGES ON DATABASE shop TO shopuser;
+CREATE DATABASE beauty;
+-- DROP DATABASE beauty;
+CREATE USER beautyuser WITH PASSWORD 'beauty';
+-- DROP USER beautyuser;
+GRANT ALL PRIVILEGES ON DATABASE beauty TO beautyuser;
