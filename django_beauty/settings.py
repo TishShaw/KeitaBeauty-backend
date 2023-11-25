@@ -96,14 +96,15 @@ AUTH_USER_MODEL = 'user.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'beauty',
-        'USER': 'beautyuser',
-        'PASSWORD': 'beauty',
-        'HOST': 'localhost'
+        'NAME': 'keitaBeauty',
+        'USER': 'kbuser',
+        'PASSWORD': 'kbuser',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 DATABASES['default'] = dj_database_url.config(
-    default='postgres://beautyuser:beauty@localhost:5432/beauty')
+    default='postgres://kbuser:kbuser@localhost:5432/keitaBeauty')
 
 
 # Password validation

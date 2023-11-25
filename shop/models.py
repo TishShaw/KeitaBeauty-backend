@@ -22,7 +22,9 @@ class Product(models.Model):
         upload_to='static/images/', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.CharField(max_length=255, null=True)
+    count_inStock = models.IntegerField(null=True, default=0)
     is_active = models.BooleanField(default=False, null=True, blank=False)
+    
    
 
     def __str__(self):
