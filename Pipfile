@@ -18,6 +18,8 @@ django-cloudinary-storage = "*"
 cloudinary = "*"
 python-decouple = "*"
 django-heroku = "*"
+django-storages==1.12.5
+
 
 [dev-packages]
 
